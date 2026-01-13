@@ -1,0 +1,10 @@
+
+WTF are we doing?
+
+1. init the FileManager to save our custom data type (Items) with: dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+
+2. Create our table controller and initialice the default protocols TableView.numberOfRowsInSection & TableView.cellForRowAt
+
+3. In this case we use the protocol TableView.didSelectRowAt to add logic when users press each cell list
+
+4. 

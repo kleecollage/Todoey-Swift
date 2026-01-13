@@ -17,7 +17,6 @@ class TodoListViewController: UITableViewController {
         super.viewDidLoad()
         print(dataFilePath!)
         
-        
         let newItem = Item()
         newItem.title = "Find Mike"
         newItem.done = true
@@ -31,6 +30,7 @@ class TodoListViewController: UITableViewController {
         newItem3.title = "Destroy demogorgon"
         itemArray.append(newItem3)
         
+        loadItems()
         /* if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
             itemArray = items
         } */
@@ -64,27 +64,24 @@ class TodoListViewController: UITableViewController {
     //MARK: - Add New Items
     @IBAction func AddButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
-        
         let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
-        
         let action = UIAlertAction(title: "Add Item", style: .default) { action in
             let newItem = Item()
             newItem.title = textField.text!
-            
             self.itemArray.append(newItem)
             self.saveItems()
         }
-        
+
         alert.addTextField { alertTextField in
             alertTextField.placeholder = "Create new item"
             textField = alertTextField
         }
-        
         alert.addAction(action)
-        
         present(alert, animated: true, completion: nil)
     }
-    
+
+
+    //MARK: - Model manipulation methods
     func saveItems() {
         let encoder = PropertyListEncoder()
         
@@ -96,6 +93,17 @@ class TodoListViewController: UITableViewController {
         }
         
         self.tableView.reloadData()
+    }
+    
+    func loadItems() {
+        if let data = try? Data(contentsOf: dataFilePath!) {
+            let decoder = PropertyListDecoder()
+            do {
+                itemArray = try decoder.decode([Item].self, from: data)
+            } catch {
+                print("ERROR: Failed to decode item: \(error)")
+            }
+        }
     }
     
 }
