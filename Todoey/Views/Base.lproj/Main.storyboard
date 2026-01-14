@@ -8,6 +8,44 @@
     </dependencies>
     <scenes>
         <!--Todoey-->
+        <scene sceneID="c4b-U0-xeS">
+            <objects>
+                <tableViewController id="cAl-wb-kod" customClass="CategoryViewController" customModule="Todoey" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="k7x-98-CCe">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="dyh-1v-Geg">
+                                <rect key="frame" x="0.0" y="50" width="393" height="51"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dyh-1v-Geg" id="uUW-14-OhZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="51"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="cAl-wb-kod" id="UgN-jt-pIz"/>
+                            <outlet property="delegate" destination="cAl-wb-kod" id="hZh-qp-LJe"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Todoey" id="Z77-Js-Keq">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="zVx-LZ-NDf">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="cAl-wb-kod" id="8D7-Iv-Bsl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="2uM-fc-r7X" kind="show" identifier="goToItems" id="g74-M0-wdx"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hXd-au-aV3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1636" y="96"/>
+        </scene>
+        <!--Items-->
         <scene sceneID="Nsb-2U-4Gc">
             <objects>
                 <tableViewController id="2uM-fc-r7X" customClass="TodoListViewController" customModule="Todoey" customModuleProvider="target" sceneMemberID="viewController">
@@ -38,7 +76,7 @@
                             <outlet property="delegate" destination="2uM-fc-r7X" id="krN-j2-Ne2"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Todoey" id="k04-SN-gFM">
+                    <navigationItem key="navigationItem" title="Items" id="k04-SN-gFM">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="EYG-hO-4la">
                             <connections>
                                 <action selector="AddButtonPressed:" destination="2uM-fc-r7X" id="aDG-do-WWm"/>
@@ -48,7 +86,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKK-f7-tqi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1762.5954198473282" y="95.774647887323951"/>
+            <point key="canvasLocation" x="2428" y="96"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ycl-C1-cWF">
@@ -59,13 +97,10 @@
                         <rect key="frame" x="0.0" y="118" width="393" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" systemColor="systemBlueColor"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" systemColor="labelColor"/>
-                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="2uM-fc-r7X" kind="relationship" relationship="rootViewController" id="Lat-kI-YBZ"/>
+                        <segue destination="cAl-wb-kod" kind="relationship" relationship="rootViewController" id="t9y-LO-e6p"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TWs-hU-ZJc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -74,9 +109,6 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
