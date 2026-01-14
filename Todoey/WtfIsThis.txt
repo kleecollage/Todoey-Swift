@@ -7,4 +7,6 @@ WTF are we doing?
 
 3. In this case we use the protocol TableView.didSelectRowAt to add logic when users press each cell list
 
-4. 
+4. Methods saveData and loadData use the write and read methods of the coder
+
+5. Implement model Items with Codable protocol
