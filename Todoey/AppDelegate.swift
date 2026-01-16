@@ -18,13 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
-        print(Realm.Configuration.defaultConfiguration.fileURL ?? "no path")
-        let data = Data()
-        data.name = "John Doe"
-        data.age = 10
+        // print(Realm.Configuration.defaultConfiguration.fileURL ?? "no path")
 
         do {
-            let realm = try Realm()
+            let _ = try Realm()
         } catch {
             print("Error initializing Realm: \(error)")
         }
