@@ -25,8 +25,6 @@ class TodoListViewController: SwipeTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = 100.0
-        
         // print(dataFilePath!)
         // let newItem = Item(context: context)
         
@@ -44,7 +42,7 @@ class TodoListViewController: SwipeTableViewController {
         itemArray.append(newItem3) */
         
         // NSCode to encode and decode more specific data types //
-        loadItems()
+        // loadItems()
         
         // USER defaults to percist data //
         /* if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
@@ -199,6 +197,7 @@ class TodoListViewController: SwipeTableViewController {
         }
     } */
     
+    // DELETE method
     override func updateModel(at indexPath: IndexPath) {
         super.updateModel(at: indexPath)
         
@@ -208,7 +207,7 @@ class TodoListViewController: SwipeTableViewController {
                     self.realm.delete(itemForDeletion)
                 }
             } catch {
-                print("ERROR: \(error.localizedDescription)")
+                print("ERROR: Failed to delete item, \(error.localizedDescription)")
             }
         }
     }
@@ -216,6 +215,7 @@ class TodoListViewController: SwipeTableViewController {
 
 
 //MARK: - Searchbar Delegate Methods
+
 extension TodoListViewController: UISearchBarDelegate {
     
     // REALM(deprecated!)

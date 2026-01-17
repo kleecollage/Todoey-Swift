@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import RealmSwift
+import ChameleonFramework
 
 class CategoryViewController: SwipeTableViewController {
     
@@ -20,7 +21,6 @@ class CategoryViewController: SwipeTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCategories()
-        tableView.rowHeight = 100.0
     }
     
     
@@ -33,12 +33,13 @@ class CategoryViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories Added Yet"
-        
+        cell.backgroundColor = UIColor(hexString: categories?[indexPath.row].colorHex)
         return cell
     }
     
     
     //MARK: - TableView Delegate Methods
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToItems", sender: self)
     }
@@ -106,7 +107,9 @@ class CategoryViewController: SwipeTableViewController {
         tableView.reloadData()
     }
     
+    
     //MARK: - Delete Data
+    
     override func updateModel(at indexPath: IndexPath) {
         super.updateModel(at: indexPath)
         
