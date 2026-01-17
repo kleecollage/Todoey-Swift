@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import RealmSwift
 
-class TodoListViewController: UITableViewController {
+class TodoListViewController: SwipeTableViewController {
     
     // let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
@@ -25,6 +25,8 @@ class TodoListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.rowHeight = 100.0
+        
         // print(dataFilePath!)
         // let newItem = Item(context: context)
         
@@ -58,7 +60,7 @@ class TodoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
             cell.accessoryType = item.done ? .checkmark : .none
@@ -110,7 +112,7 @@ class TodoListViewController: UITableViewController {
         var textField = UITextField()
         let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add Item", style: .default) { action in
-            // REALM(deprecated!)
+            // REALM(deprecated!) saveData
             if let currentCategory = self.selectedCategory {
                 do {
                     try self.realm.write {
@@ -147,13 +149,13 @@ class TodoListViewController: UITableViewController {
 
     //MARK: - Model Manipulation Methods
     
-    // CORE DATA saveData() //
+    // CORE DATA/ENCODER saveData() //
     /* func saveItems() {
-        // let encoder = PropertyListEncoder()
+        // let encoder = PropertyListEncoder() // ENCODER
         do {
-            // let data = try encoder.encode(self.itemArray)
-            // try data.write(to: self.dataFilePath!)
-            try context.save()
+            // let data = try encoder.encode(self.itemArray) // ENCODER
+            // try data.write(to: self.dataFilePath!) // ENCODER
+            try context.save() // CORE DATA
         } catch {
             print("ERROR: \(error)")
         }
@@ -197,6 +199,19 @@ class TodoListViewController: UITableViewController {
         }
     } */
     
+    override func updateModel(at indexPath: IndexPath) {
+        super.updateModel(at: indexPath)
+        
+        if let itemForDeletion = self.todoItems?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(itemForDeletion)
+                }
+            } catch {
+                print("ERROR: \(error.localizedDescription)")
+            }
+        }
+    }
 }
 
 
