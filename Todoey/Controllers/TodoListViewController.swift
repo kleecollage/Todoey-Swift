@@ -13,7 +13,9 @@ import ChameleonFramework
 
 class TodoListViewController: SwipeTableViewController {
     
-    // let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    // let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext //  CORE DATA
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     let realm = try! Realm()
     // var itemArray = [Item]() // CORE DATA
@@ -26,6 +28,7 @@ class TodoListViewController: SwipeTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // print(dataFilePath!)
         // let newItem = Item(context: context)
         
@@ -49,6 +52,22 @@ class TodoListViewController: SwipeTableViewController {
         /* if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
             itemArray = items
         } */
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let colourHex = selectedCategory?.colorHex {
+            title = selectedCategory!.name
+            guard let navBar = navigationController?.navigationBar else  {fatalError("Navigation Controller does not exist.")}
+            if let navBarColor = UIColor(hexString: colourHex) {
+                let contrastColor = ContrastColorOf(backgroundColor: navBarColor, returnFlat: true)
+                navBar.barTintColor = navBarColor
+                navBar.backgroundColor = navBarColor
+                navBar.tintColor = contrastColor
+                // navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: contrastColor]
+                navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: contrastColor]
+                searchBar.barTintColor = navBarColor
+            }
+        }
     }
     
     
